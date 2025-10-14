@@ -8,24 +8,46 @@
   <link href="../../dist/output.css" rel="stylesheet">
 </head>
 
-<body class="m-5 bg-white">
+<body class="bg-white font-mono">
 
-   <nav class="flex flex-col sm:flex-row sm:justify-between">
-    <p class="font-serif font-bold text-xl italic tracking-wide leading-relaxed mb-4 sm:mb-0">
-      Check Weather</p>
-  <div class="flex flex-col space-y-2 sm:flex-row sm:space-x-2 sm:space-y-0">
-    <button
-      class="border-2 border-black px-5 py-1 rounded-full hover:bg-black hover:text-white transition-all duration-300">
-      Signup</button>
-    <button
-      class="border-2  border-black bg-black text-white px-5 py-1  rounded-full hover:bg-white hover:text-black transition-all duration-300">
-      Login</button>
+
+  <div class="relative min-h-screen p-4 sm:max-w-[1140px] sm:mx-auto">
+
+    <!-- Overlay (hidden by default) enables only when input bar gets focused. -->
+    <div id="overlay" class="hidden fixed inset-0 bg-gray-500/50 backdrop-blur-sm transition-all duration-500"></div>
+
+    <!-- Navigation bar -->
+    <nav class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+      <p class="font-black text-2xl italic tracking-wide mb-4 sm:mb-0">
+        Check Weather</p>
+      <div class="flex flex-col space-y-2 sm:flex-row sm:space-x-2 sm:space-y-0">
+        <button
+          class="border-2 border-black px-5 py-1 rounded-full hover:bg-black hover:text-white transition-all duration-300">
+          Signup</button>
+        <button
+          class="border-2  border-black bg-black text-white px-5 py-1  rounded-full hover:bg-white hover:text-black transition-all duration-300">
+          Login</button>
+      </div>
+    </nav>
+
+    <!-- Input bar -->
+    <div class="max-w-[744px] mx-auto relative z-20">
+      <form class="flex border-2 rounded-sm bg-gray-100 mt-4">
+        <input id='search' type="text" placeholder="Enter the city name..."
+          class="flex-1 p-2 outline-none focus:bg-white transition-all duration-500">
+        <button class="p-1 border-l-2"><img src="../assets/search.svg" alt="" class="w-8"></button>
+      </form>
+    </div>
+
   </div>
-  </nav>
 
-  
 
-  
+
+
+
+
+
+
 
 
 
