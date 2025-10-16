@@ -17,20 +17,21 @@ function removeOverlay(){
 }
 
 
-function displayErrorMsg(message){
+function showErrorPopup(message){
 
-  const errorContainer = document.querySelector('#error-container');
-  const msgElement = document.querySelector('#error-msg');
+  const popup = document.querySelector('#error-msg');
+  popup.innerText = message;
+  popup.classList.remove('hidden','opacity-0');
+  popup.classList.add('opacity-100');
 
-  msgElement.innerHTML = message;
-  errorContainer.classList.remove('hidden');
-  errorContainer.classList.add('opacity-100')
+  
 
 
   setTimeout(()=>
     {
-      errorContainer.classList.add('hidden')
-    },2000)
+      popup.classList.add('opacity-0');
+      setTimeout(()=> popup.classList.add('hidden'),500);
+    },3000);
 
 
 }
@@ -114,7 +115,7 @@ async function  callCurrentWeather(city) {
  }
   catch (err) {
     console.log('Something went wrong:', err.message);
-    displayErrorMsg(err.message);
+    showErrorPopup(err.message);
  }
 
 }
