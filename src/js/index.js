@@ -24,9 +24,6 @@ function showErrorPopup(message){
   popup.classList.remove('hidden','opacity-0');
   popup.classList.add('opacity-100');
 
-  
-
-
   setTimeout(()=>
     {
       popup.classList.add('opacity-0');
@@ -135,8 +132,4 @@ form.addEventListener('submit',(event)=>{
     // implement later
   }
   callCurrentWeather(cityName)
-
-  
-
-
 })
