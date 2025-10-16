@@ -8,7 +8,7 @@
   <link href="../../dist/output.css" rel="stylesheet">
 </head>
 
-<body class="bg-white font-mono">
+<body class="bg-gray-300 font-mono">
 
 
   <div class="relative min-h-screen p-4 sm:max-w-[1140px] sm:mx-auto">
@@ -31,13 +31,46 @@
     </nav>
 
     <!-- Input bar -->
-    <div class="max-w-[744px] mx-auto relative z-20">
+    <div class="max-w-[940px] mx-auto relative z-20">
       <form class="flex border-2 rounded-sm bg-gray-100 mt-4">
-        <input id='search' type="text" placeholder="Enter the city name..."
+        <input id='search-city' type="text" placeholder="Enter the city name..."
           class="flex-1 p-2 outline-none focus:bg-white transition-all duration-500">
         <button class="p-1 border-l-2"><img src="../assets/search.svg" alt="" class="w-8"></button>
       </form>
     </div>
+
+    <!-- Current weather -->
+    <section class="max-w-[840px] bg-white mx-auto mt-4 rounded-sm shadow-sm p-6">
+      <div class="flex justify-between border-b border-gray-200">
+        <p class="text-gray-500" id="weather-location">CURRENT WEATHER</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] space-x-4">
+
+        <!-- weather header -->
+        <div class="flex items-center justify-center current-weather overflow-hidden">
+          <img src='' alt="" class="w-20 h-20 object-contain sm:w-30 sm:h-30">
+
+          <div class="flex flex-col items-center">
+            <h1 
+            class="font-black text-[4rem] tracking-tighter leading-none m-0 sm:text-[6rem]" 
+            id="curr-weather-temp"></h1>
+            <p 
+            class="m-0 leading-none" 
+            id="curr-weather-realfeel"></p>
+          </div>
+
+        </div>
+
+        <!-- weather body -->
+        <div class="mt-4 space-y-5" id="current-weather-body">
+        </div>
+
+      </div>
+
+
+    </section>
+
 
   </div>
 
