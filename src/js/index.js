@@ -113,6 +113,7 @@ function displayCurrentWeather(data){
 }
 
 async function  callCurrentWeather(city) {
+ ShowLoader(); // show loader
 
  try{
     const currentweather = await getCurrentWeather(city);  
@@ -122,6 +123,10 @@ async function  callCurrentWeather(city) {
     console.log('Something went wrong:', err.message);
     showErrorPopup(err.message);
  }
+ finally{
+  stopLoader(); // hide loader;
+ }
+
 
 }
 
