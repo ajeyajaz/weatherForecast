@@ -133,15 +133,19 @@ const form = document.querySelector('form');
 console.log(form)
 
 form.addEventListener('submit',(event)=>{
-  event.preventDefault()
-  const cityName = form.querySelector('#search-city').value.trim();
+  event.preventDefault();
+
+  const searchELement = form.querySelector('#search-city');
+  const cityName = searchELement.value.trim();
   
   if (!cityName){
-    // implement later
+    showErrorPopup('City cannot be empty.');
+    return;
   }
   callCurrentWeather(cityName);
 
   // remove overlay when search is done
   document.querySelector('#overlay').classList.add('hidden');
+  searchELement.value = '';
 
 })
