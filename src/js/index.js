@@ -33,6 +33,14 @@ function showErrorPopup(message){
 
 }
 
+function ShowLoader(){
+  document.querySelector('#loading').classList.remove('hidden');
+}
+
+function stopLoader(){
+  document.querySelector('#loading').classList.add('hidden');
+}
+
 
 const apiKey = "5614665fe82de178e15334d554e30c97";
 
