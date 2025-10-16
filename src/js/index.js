@@ -1,21 +1,17 @@
-// Adding overlay
-const overlay = document.getElementById('overlay');
-const searchInput = document.getElementById('search-city');
-
-
-searchInput.addEventListener('focus', addOverlay);
-
-searchInput.addEventListener('blur', removeOverlay);
-
-
 function addOverlay(){
-    overlay.classList.remove('hidden');
+  document.getElementById('overlay').classList.remove('hidden');
 }
 
 function removeOverlay(){
-    overlay.classList.add('hidden');
-}
+  document.getElementById('overlay').classList.add('hidden');
+} 
 
+{
+  // add overalay when search happens
+const searchField = document.querySelector('#search-city');
+searchField.addEventListener('focus', addOverlay);
+searchField.addEventListener('blur', removeOverlay);
+}
 
 function showErrorPopup(message){
 
@@ -127,7 +123,6 @@ async function  callCurrentWeather(city) {
   stopLoader(); // hide loader;
  }
 
-
 }
 
 callCurrentWeather('landon');
@@ -144,5 +139,9 @@ form.addEventListener('submit',(event)=>{
   if (!cityName){
     // implement later
   }
-  callCurrentWeather(cityName)
+  callCurrentWeather(cityName);
+
+  // remove overlay when search is done
+  document.querySelector('#overlay').classList.add('hidden');
+
 })
