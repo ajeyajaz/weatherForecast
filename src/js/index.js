@@ -17,6 +17,25 @@ function removeOverlay(){
 }
 
 
+function displayErrorMsg(message){
+
+  const errorContainer = document.querySelector('#error-container');
+  const msgElement = document.querySelector('#error-msg');
+
+  msgElement.innerHTML = message;
+  errorContainer.classList.remove('hidden');
+  errorContainer.classList.add('opacity-100')
+
+
+  setTimeout(()=>
+    {
+      errorContainer.classList.add('hidden')
+    },2000)
+
+
+}
+
+
 const apiKey = "5614665fe82de178e15334d554e30c97";
 
 async function getCurrentWeather(city){
@@ -60,7 +79,6 @@ async function getCurrentWeather(city){
     }
   }
   catch(err){
-    console.log('something went wrong...')
     throw err;
   }
 
@@ -96,6 +114,7 @@ async function  callCurrentWeather(city) {
  }
   catch (err) {
     console.log('Something went wrong:', err.message);
+    displayErrorMsg(err.message);
  }
 
 }
