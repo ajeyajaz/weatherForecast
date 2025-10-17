@@ -1,17 +1,36 @@
-function addOverlay(){
-  document.getElementById('overlay').classList.remove('hidden');
-}
-
-function removeOverlay(){
-  document.getElementById('overlay').classList.add('hidden');
-} 
-
-{
-  // add overalay when search happens
+// displaying overlay and recent-list dropdown.
 const searchField = document.querySelector('#search-city');
-searchField.addEventListener('focus', addOverlay);
-searchField.addEventListener('blur', removeOverlay);
+const dropdown = document.getElementById('recent-list');
+let recentList = [];
+
+searchField.addEventListener('focus', ()=>{
+  
+  document.getElementById('overlay').classList.remove('hidden')
+  dropdown.classList.remove('hidden');
+
+  //preapre dropdown Item
+  dropdown.innerHTML = 
+    recentList.map((city)=>`<li class="p-2 hover:bg-gray-300/50 overflow-hidden">${city}</li>`).join('');
+});
+
+function hideOverlayDropdown(){
+  document.getElementById('overlay').classList.add('hidden');
+  dropdown.classList.add('hidden');
 }
+
+document.addEventListener('click', e=>{
+  // if clicked elem not searchIput or dropdown items hide overlay and dropdown.
+  const clickedElem = searchField.contains(e.target) || dropdown.contains(e.target); 
+  
+  if(!clickedElem){
+    document.getElementById('overlay').classList.add('hidden');
+    dropdown.classList.add('hidden');
+  };
+});
+
+dropdown.addEventListener('click', e =>{
+  if(e.target.tagName === 'LI')displayWeather(e.target.innerText);
+});
 
 function showErrorPopup(message){
 
@@ -112,26 +131,24 @@ function displayCurrentWeather(data){
 
 
 const form = document.querySelector('form');
-console.log(form)
 
 form.addEventListener('submit',(event)=>{
   event.preventDefault();
 
   const searchELement = form.querySelector('#search-city');
-  const cityName = searchELement.value.trim();
+  const cityName = searchELement.value.trim().toLowerCase();
   
   if (!cityName){
     showErrorPopup('City cannot be empty.');
     return;
   }
+  if(!recentList.includes(cityName)) recentList.push(cityName); // if new city search, add to history.
   displayWeather(cityName);
 
-  // remove overlay when search is done
-  document.querySelector('#overlay').classList.add('hidden');
+  // clean input field.
   searchELement.value = '';
 
 });
-
 
 function getWeatherColor(weatherType){
 
@@ -247,7 +264,18 @@ async function  displayWeather(city) {
  }
  finally{
   stopLoader(); // hide loader;
+  hideOverlayDropdown(); //hide overlay and dropdown
  }
 }
 
 displayWeather('landon');
+
+
+window.addEventListener('beforeunload', ()=> {
+  localStorage.setItem('recentSearch', recentList); // save to local storage.
+});
+
+window.addEventListener('load',()=>{
+  recentSearch = localStorage.getItem('recentSearch');; // get the recent-search if there.
+  recentList = recentSearch.split(',');
+})
