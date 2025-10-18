@@ -74,7 +74,7 @@ function stopLoader(){
   document.querySelector('#loading').classList.add('hidden');
 }
 
-const apiKey = "5614665fe82de178e15334d554e30c97";
+const apiKey = "YOUR_API_KEY_HERE"; //replace with your OpenWeatherMap apikey
 
 
 // Current Weather
