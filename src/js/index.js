@@ -93,9 +93,9 @@ async function getCurrentWeather(city){
 
       // extract essential data
       const temp = json.main.temp;
-      const humidity = json.main.humidity;
-      const windSpeed = json.wind.speed;
-      const realFeel = json.main.feels_like;
+      const humidity = `${json.main.humidity}%`;
+      const windSpeed = `${json.wind.speed}m/s`;
+      const realFeel = `${json.main.feels_like}m/s`;
       const location = json.name;
       const icon = json.weather?.[0]?.icon || '01d'; //default icon if not available.
 
@@ -111,7 +111,7 @@ async function getCurrentWeather(city){
         bodyInfo:[
           {label: 'Temp', value:temp},
           {label: 'Humidity', value:humidity},
-          {label: 'wind speed', value: `E ${windSpeed}km/h`},
+          {label: 'wind speed', value: `${windSpeed}`},
       ]
     };
       
@@ -125,7 +125,7 @@ async function getCurrentWeather(city){
 
 
 function displayCurrentWeather(data){
-  
+  const alertTemprature = 40;
   const locationElem = document.getElementById('weather-location');
   const iconElem = document.querySelector('.current-weather img');
   const tempElem = document.getElementById('curr-weather-temp');
@@ -144,6 +144,10 @@ function displayCurrentWeather(data){
         <span>${item.label}</span><span class="font-bold">${item.value}</span>
     </div>`
     )).join('');
+
+  if(data.headerInfo.temprature > alertTemprature)
+    displayPopup('The current temperature is above 40°C. Please take necessary precautions to stay safe and hydrated.');
+
 }
 
 
@@ -203,9 +207,9 @@ async function getExtendedForcast(city) {
           weather: item.weather[0]?.main || 'not available',
           weatherIcon: item.weather[0]?.icon || '01d',
           feelsLike: item.main.feels_like,
-          humidity: item.main.humidity,
-          windSpeed: item.wind.speed,
-          windGust: item.wind.gust || '-'
+          humidity: `${item.main.humidity}%`,
+          windSpeed: `${item.wind.speed}m/s`,
+          windGust: `${item.wind.gust}m/s` || '-'
        } 
     }).map(item =>{
       item.bgColor = getWeatherColor(item.weather); // get color based on weatherType
@@ -231,7 +235,7 @@ function displayExtendedForcast(data){
         <div class="${item.bgColor} w-[40%] h-full flex flex-col justify-center items-center p-2 shadow-md rounded-sm relative">
           <p class="absolute left-2 top-0 text-black/50">${item.date}</p>
           <img src="https://openweathermap.org/img/wn/${item.weatherIcon}@2x.png" alt="" class="w-30 h-20 object-contain">
-          <h3 class="font-black text-xl">${item.temp}&deg;</h3>
+          <h3 class="font-black text-xl">${item.temp}&deg;c</h3>
         </div>
 
         <div class="w-[60%]  space-y-3">
