@@ -30,8 +30,7 @@ function hideOverlayDropdown(){
 
 document.addEventListener('click', e=>{
   // if clicked elem not searchIput or dropdown items hide overlay and dropdown.
-  const clickedElem = searchField.contains(e.target) || dropdown.contains(e.target); 
-  console.log(dropdown.contains(e.target));
+  const clickedElem = searchField.contains(e.target) || dropdown.contains(e.target);
   if(!clickedElem){
     hideOverlayDropdown();
   };
@@ -39,6 +38,7 @@ document.addEventListener('click', e=>{
 
 
 dropdown.addEventListener('click', e =>{
+  e.stopPropagation(); // prevent innvoking hideOverlayDropdown
   const item = e.target
   if(item.tagName === 'LI')displayWeather(e.target.innerText); // click happens on dropdown item, get data.
   
