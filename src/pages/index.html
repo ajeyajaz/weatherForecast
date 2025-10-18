@@ -10,7 +10,6 @@
 
 <body class="bg-gray-300 font-mono">
 
-
   <div class="relative min-h-screen p-4 sm:max-w-[1140px] sm:mx-auto">
 
     <!-- Overlay (hidden by default) enables only when input bar gets focused. -->
@@ -18,12 +17,15 @@
 
     <!-- Navigation bar -->
     <nav class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+
       <p class="font-black text-2xl italic tracking-wide mb-4 sm:mb-0">
         Check Weather</p>
+
       <div class="flex flex-col space-y-2 sm:flex-row sm:space-x-2 sm:space-y-0">
         <button
           class="border-2 border-black px-5 py-1 rounded-full hover:bg-black hover:text-white transition-all duration-300">
           Signup</button>
+
         <button
           class="border-2  border-black bg-black text-white px-5 py-1  rounded-full hover:bg-white hover:text-black transition-all duration-300">
           Login</button>
@@ -36,11 +38,17 @@
       <form class="flex border-2 rounded-sm bg-gray-100 mt-4">
         <input id='search-city' type="text" placeholder="Enter the city name..."
           class="flex-1 p-2 outline-none focus:bg-white transition-all duration-500">
+
         <button class="p-1 border-l-2"><img src="../assets/search.svg" alt="" class="w-8"></button>
       </form>
-
-        <ul id='recent-list'class="w-full bg-white rounded-sm mt-1 shadow hidden">
-        </ul>
+      <!-- dropdrown -->
+      <ul id='recent-list' class="w-full bg-white rounded-sm mt-1 shadow hidden">
+        <li class="p-2 hover:bg-gray-300/50 overflow-hidden flex justify-between items-center">${city}
+          <button class="hover:bg-amber-200">
+            <img src="https://www.svgrepo.com/show/505220/cross.svg" alt="" class="w-5 h-5">
+          </button>
+        </li>
+      </ul>
 
     </div>
 
@@ -57,32 +65,31 @@
           <img src='' alt="" class="w-20 h-20 object-contain sm:w-30 sm:h-30">
 
           <div class="flex flex-col items-center">
-            <h1 class="font-black text-[4rem] tracking-tighter leading-none m-0 sm:text-[6rem]" id="curr-weather-temp">
+            <h1 id="curr-weather-temp" class="font-black text-[4rem] tracking-tighter leading-none m-0 sm:text-[6rem]">
             </h1>
-            <p class="m-0 leading-none" id="curr-weather-realfeel"></p>
+
+            <p id="curr-weather-realfeel" class="m-0 leading-none"></p>
           </div>
 
         </div>
 
-        <!-- weather body -->
+        <!-- current-weather body -->
         <div class="mt-4 space-y-5" id="current-weather-body">
         </div>
 
       </div>
     </section>
 
-    <!-- 5-day forecast -->
-    <h2 class="font-black text-2xl mt-5 uppercase">4-day forecast</h2>
+    <!-- 4-day forecast -->
+    <h2 class="font-black text-2xl mt-5 uppercase">4-day forcast</h2>
 
     <section class="grid grid-cols-1 gap-y-1 md:grid-cols-2 md:gap-x-1 " id="extendedForcast">
     </section>
-
-
   </div>
 
 
-  <!-- Error Popup Preview -->
-  <div id="error-msg"
+  <!-- Popup msg-->
+  <div id="popup-msg"
     class="hidden fixed top-5 opacity-0 left-1/2 -translate-x-1/2  bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg text-center z-50">
   </div>
 
@@ -91,7 +98,6 @@
   <div id="loading" class="hidden fixed inset-0 flex items-center justify-center bg-black/30 z-50">
     <div class="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
   </div>
-
 
   <script src="../js/index.js"></script>
 </body>

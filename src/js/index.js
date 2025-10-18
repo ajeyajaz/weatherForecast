@@ -13,7 +13,12 @@ searchField.addEventListener('focus', ()=>{
 
   //preapre dropdown Item
   dropdown.innerHTML = 
-    recentList.map((city)=>`<li class="p-2 hover:bg-gray-300/50 overflow-hidden">${city}</li>`).join('');
+    recentList.map((city)=>
+        `<li class="p-2 hover:bg-gray-300/50 overflow-hidden flex justify-between items-center">${city}
+          <button class="hover:bg-amber-200">
+            <img src="https://www.svgrepo.com/show/505220/cross.svg" alt="" class="w-5 h-5">
+          </button>
+        </li>`).join('');
 });
 
 
@@ -34,7 +39,15 @@ document.addEventListener('click', e=>{
 
 
 dropdown.addEventListener('click', e =>{
-  if(e.target.tagName === 'LI')displayWeather(e.target.innerText); // click happens on dropdown item, get data.
+  const item = e.target
+  if(item.tagName === 'LI')displayWeather(e.target.innerText); // click happens on dropdown item, get data.
+  
+  if(item.parentElement.tagName === 'BUTTON'){
+    const value = item.parentElement.parentElement.innerText;
+    const parent = item.parentElement.parentElement;
+    parent.remove();
+    recentList.splice(recentList.indexOf(value),1);
+  }
 });
 
 
