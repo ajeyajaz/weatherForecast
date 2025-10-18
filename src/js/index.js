@@ -31,7 +31,7 @@ function hideOverlayDropdown(){
 document.addEventListener('click', e=>{
   // if clicked elem not searchIput or dropdown items hide overlay and dropdown.
   const clickedElem = searchField.contains(e.target) || dropdown.contains(e.target); 
-  
+  console.log(dropdown.contains(e.target));
   if(!clickedElem){
     hideOverlayDropdown();
   };
@@ -290,6 +290,6 @@ window.addEventListener('beforeunload', ()=> {
 });
 
 window.addEventListener('load',()=>{
-  recentSearch = localStorage.getItem('recentSearch');; // get the recent-search if there.
-  recentList = recentSearch.split(',');
+  recentSearch = localStorage.getItem('recentSearch'); // get the recent-search if there.
+  if(recentSearch)recentList = recentSearch.split(',');
 })
