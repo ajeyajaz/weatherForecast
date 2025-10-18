@@ -78,8 +78,11 @@ const apiKey = "5614665fe82de178e15334d554e30c97";
 
 
 // Current Weather
-async function getCurrentWeather(city){
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+async function getCurrentWeather(city, lat=null, lon=null){
+  const urlCity = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  const urlLatLon = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric
+` 
+  const url = lat && lon ? urlLatLon : urlCity
 
   try{
     const response = await fetch(url);
@@ -105,7 +108,7 @@ async function getCurrentWeather(city){
           temprature: temp,
           realFeel: realFeel,
           location: location,
-          icon: icon
+          icon: icon,
         },
         //for  body
         bodyInfo:[
@@ -183,10 +186,13 @@ function getWeatherColor(weatherType){
 
 
 // 5-days WeatherForcast
-async function getExtendedForcast(city) {
+async function getExtendedForcast(city, lat=null, lon=null) {
 
-  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
-  
+  const urlCity = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+  const urlLatLon = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
+
+  const url = lat && lon ? urlLatLon : urlCity
+
   try{
     const response = await fetch(url);
     
@@ -297,3 +303,22 @@ window.addEventListener('load',()=>{
   recentSearch = localStorage.getItem('recentSearch'); // get the recent-search if there.
   if(recentSearch)recentList = recentSearch.split(',');
 })
+
+
+document.getElementById('live-btn').addEventListener('click',()=>{
+  ShowLoader()
+  // Check if geolocation is supported
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(
+      function(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        displayWeather(latitude, longitude)
+        console.log(latitude, longitude)
+      },
+    );
+  } else {
+    displayPopup('Geolocation is not supported by your browser.')
+  }
+});
+
