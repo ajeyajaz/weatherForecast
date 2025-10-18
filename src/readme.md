@@ -38,8 +38,7 @@ Technology
 #### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/<your-username>/weather-forecast-app.git
-cd weather-forecast-app
+git clone https://github.com/ajeyajaz/weatherForecast.git
 ```
 
 #### 2. Setup API Key
@@ -53,12 +52,6 @@ cd weather-forecast-app
    ```
 
 ---
-
-### 3. run 
-
- ```
-   npx @tailwindcss/cli -i ./src/css/input.css -o ./dist/output.css --watch
-```
 
 ### 4. start Live server
 
