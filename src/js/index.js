@@ -1,11 +1,14 @@
 // displaying overlay and recent-list dropdown.
 const searchField = document.querySelector('#search-city');
 const dropdown = document.getElementById('recent-list');
+const form = document.querySelector('form');
 let recentList = [];
+const defaultCity = 'Landon';
+
 
 searchField.addEventListener('focus', ()=>{
   
-  document.getElementById('overlay').classList.remove('hidden')
+  document.getElementById('overlay').classList.remove('hidden');
   dropdown.classList.remove('hidden');
 
   //preapre dropdown Item
@@ -13,28 +16,31 @@ searchField.addEventListener('focus', ()=>{
     recentList.map((city)=>`<li class="p-2 hover:bg-gray-300/50 overflow-hidden">${city}</li>`).join('');
 });
 
+
 function hideOverlayDropdown(){
   document.getElementById('overlay').classList.add('hidden');
   dropdown.classList.add('hidden');
 }
+
 
 document.addEventListener('click', e=>{
   // if clicked elem not searchIput or dropdown items hide overlay and dropdown.
   const clickedElem = searchField.contains(e.target) || dropdown.contains(e.target); 
   
   if(!clickedElem){
-    document.getElementById('overlay').classList.add('hidden');
-    dropdown.classList.add('hidden');
+    hideOverlayDropdown();
   };
 });
 
+
 dropdown.addEventListener('click', e =>{
-  if(e.target.tagName === 'LI')displayWeather(e.target.innerText);
+  if(e.target.tagName === 'LI')displayWeather(e.target.innerText); // click happens on dropdown item, get data.
 });
 
-function showErrorPopup(message){
 
-  const popup = document.querySelector('#error-msg');
+function displayPopup(message){
+
+  const popup = document.querySelector('#popup-msg');
   popup.innerText = message;
   popup.classList.remove('hidden','opacity-0');
   popup.classList.add('opacity-100');
@@ -44,9 +50,8 @@ function showErrorPopup(message){
       popup.classList.add('opacity-0');
       setTimeout(()=> popup.classList.add('hidden'),500);
     },3000);
+  }
 
-
-}
 
 function ShowLoader(){
   document.querySelector('#loading').classList.remove('hidden');
@@ -56,11 +61,10 @@ function stopLoader(){
   document.querySelector('#loading').classList.add('hidden');
 }
 
-
 const apiKey = "5614665fe82de178e15334d554e30c97";
 
-// Current Weather
 
+// Current Weather
 async function getCurrentWeather(city){
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
@@ -68,15 +72,13 @@ async function getCurrentWeather(city){
     const response = await fetch(url);
     const json = await response.json();
 
-
-
     if(!response.ok){
-      throw new Error('city not found');
+      throw new Error('city not found'); 
     }
-
+    
     if(response.ok){
 
-
+      // extract essential data
       const temp = json.main.temp;
       const humidity = json.main.humidity;
       const windSpeed = json.wind.speed;
@@ -85,13 +87,14 @@ async function getCurrentWeather(city){
       const icon = json.weather?.[0]?.icon || '01d'; //default icon if not available.
 
       return {
-        headInfo: {
+        // for header
+        headerInfo: {
           temprature: temp,
           realFeel: realFeel,
           location: location,
           icon: icon
         },
-
+        //for  body
         bodyInfo:[
           {label: 'Temp', value:temp},
           {label: 'Humidity', value:humidity},
@@ -113,15 +116,16 @@ function displayCurrentWeather(data){
   const locationElem = document.getElementById('weather-location');
   const iconElem = document.querySelector('.current-weather img');
   const tempElem = document.getElementById('curr-weather-temp');
-  const realFeelElem = document.getElementById('curr-weather-realfeel')
+  const realFeelElem = document.getElementById('curr-weather-realfeel');
   const container = document.getElementById('current-weather-body');
 
+  // injecting headerinfo
+  iconElem.setAttribute('src',`https://openweathermap.org/img/wn/${data.headerInfo.icon}@2x.png`);
+  tempElem.innerHTML = `${data.headerInfo.temprature}&deg;<span class="text-[1rem]  tracking-tighter">c</span>`
+  locationElem.innerText = `Current Weather(${data.headerInfo.location})`;
+  realFeelElem.innerHTML = `RealFeeL ${data.headerInfo.realFeel}&deg;`;
   
-  iconElem.setAttribute('src',`https://openweathermap.org/img/wn/${data.headInfo.icon}@2x.png`);
-  tempElem.innerHTML = `${data.headInfo.temprature}&deg;<span class="text-[1rem]  tracking-tighter">c</span>`
-  locationElem.innerText = `Current Weather(${data.headInfo.location})`;
-  realFeelElem.innerHTML = `RealFeeL ${data.headInfo.realFeel}&deg;`;
-  
+  // body element
   container.innerHTML = data.bodyInfo.map((item) => (
     `<div class="flex justify-between border-b border-gray-200">
         <span>${item.label}</span><span class="font-bold">${item.value}</span>
@@ -130,8 +134,6 @@ function displayCurrentWeather(data){
 }
 
 
-const form = document.querySelector('form');
-
 form.addEventListener('submit',(event)=>{
   event.preventDefault();
 
@@ -139,7 +141,7 @@ form.addEventListener('submit',(event)=>{
   const cityName = searchELement.value.trim().toLowerCase();
   
   if (!cityName){
-    showErrorPopup('City cannot be empty.');
+    displayPopup('City cannot be empty.');
     return;
   }
   if(!recentList.includes(cityName)) recentList.push(cityName); // if new city search, add to history.
@@ -149,6 +151,7 @@ form.addEventListener('submit',(event)=>{
   searchELement.value = '';
 
 });
+
 
 function getWeatherColor(weatherType){
 
@@ -163,7 +166,6 @@ function getWeatherColor(weatherType){
 
 
 // 5-days WeatherForcast
-
 async function getExtendedForcast(city) {
 
   const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
@@ -172,8 +174,7 @@ async function getExtendedForcast(city) {
     const response = await fetch(url);
     
     if (!response.ok){
-      // implement later;
-      console.log('bad response in extend weather.')
+      throw new Error('city not found');
     }
     const json = await response.json();
 
@@ -204,12 +205,13 @@ async function getExtendedForcast(city) {
 
 }
 
+
 function displayExtendedForcast(data){
 
   const extendedForcastElem = document.querySelector('#extendedForcast');
-  console.log(data);
+ 
   extendedForcastElem.innerHTML = data.map((item)=>{
-
+    // extended forcast card
     return `
       <div class="bg-white p-4 flex gap-x-4 shadow-md w-full mx-auto rounded-sm">
 
@@ -259,8 +261,7 @@ async function  displayWeather(city) {
     displayExtendedForcast(extendWeather);
  }
   catch (err) {
-    console.log('Something went wrong:', err.message);
-    showErrorPopup(err.message);
+    displayPopup(err.message);
  }
  finally{
   stopLoader(); // hide loader;
@@ -268,7 +269,7 @@ async function  displayWeather(city) {
  }
 }
 
-displayWeather('landon');
+displayWeather(defaultCity);
 
 
 window.addEventListener('beforeunload', ()=> {
