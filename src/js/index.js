@@ -74,7 +74,7 @@ function stopLoader(){
   document.querySelector('#loading').classList.add('hidden');
 }
 
-const apiKey = "YOUR_API_KEY_HERE"; //replace with your OpenWeatherMap apikey
+const apiKey = "17d07533467ca9cf8b160bce8034bdc3"; //replace with your OpenWeatherMap apikey
 
 
 // Current Weather
@@ -271,16 +271,16 @@ function displayExtendedForcast(data){
 }
 
 
-async function  displayWeather(city) {
+async function  displayWeather(city,lat,lon) {
  ShowLoader(); // show loader
 
  try{
-    const [currentweather, extendWeather] = await Promise.all([
-      getCurrentWeather(city),
-      getExtendedForcast(city)
+    const [currentWeather, extendWeather] = await Promise.all([
+      getCurrentWeather(city,lat,lon),
+      getExtendedForcast(city,lat,lon)
     ]);
 
-    displayCurrentWeather(currentweather);
+    displayCurrentWeather(currentWeather);
     displayExtendedForcast(extendWeather);
  }
   catch (err) {
@@ -313,8 +313,7 @@ document.getElementById('live-btn').addEventListener('click',()=>{
       function(position) {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
-        displayWeather(latitude, longitude)
-        console.log(latitude, longitude)
+        displayWeather(null, latitude, longitude)
       },
     );
   } else {
