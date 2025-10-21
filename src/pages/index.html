@@ -8,7 +8,7 @@
   <link href="../../dist/output.css" rel="stylesheet">
 </head>
 
-<body class="bg-gray-300 font-mono">
+<body class="bg-gray-300 font-mon">
 
   <div class="min-h-screen p-4 sm:max-w-[1140px] sm:mx-auto">
 
@@ -43,11 +43,13 @@
     </div>
 
     <!-- Current weather -->
-    <section class="max-w-[840px] bg-white mx-auto mt-4 rounded-sm shadow-sm p-6">
-      <div class="flex justify-between border-b border-gray-200">
-        <p class="text-gray-500" id="weather-location">CURRENT WEATHER</p>
-      </div>
+    <section id="#current-weather-section"
+    >
+      <div 
+      id="weather-location"
+      class="flex justify-between border-b border-gray-200"
 
+      > CURRENT WEATHER </div>
       <div class="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] space-x-4">
 
         <!-- weather header -->
@@ -70,8 +72,8 @@
       </div>
     </section>
 
-    <!-- 4-day forecast -->
-    <h2 class="font-black text-2xl mt-5 uppercase">4-day forcast</h2>
+    <!-- extended forecast -->
+    <h2 class="font-black text-2xl mt-5 uppercase">future forcast</h2>
 
     <section class="grid grid-cols-1 gap-y-1 md:grid-cols-2 md:gap-x-1 " id="extendedForcast">
     </section>

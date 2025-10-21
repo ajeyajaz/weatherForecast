@@ -3,7 +3,7 @@ const searchField = document.querySelector('#search-city');
 const dropdown = document.getElementById('recent-list');
 const form = document.querySelector('form');
 let recentList = [];
-const defaultCity = 'Landon';
+const defaultCity = 'London';
 
 
 searchField.addEventListener('focus', ()=>{
@@ -98,9 +98,11 @@ async function getCurrentWeather(city, lat=null, lon=null){
       const temp = json.main.temp;
       const humidity = `${json.main.humidity}%`;
       const windSpeed = `${json.wind.speed}m/s`;
-      const realFeel = `${json.main.feels_like}m/s`;
+      const realFeel = `${json.main.feels_like}`;
       const location = json.name;
       const icon = json.weather?.[0]?.icon || '01d'; //default icon if not available.
+      const weatherType = json.weather[0]?.main;
+
 
       return {
         // for header
@@ -109,6 +111,7 @@ async function getCurrentWeather(city, lat=null, lon=null){
           realFeel: realFeel,
           location: location,
           icon: icon,
+          weatherType: weatherType
         },
         //for  body
         bodyInfo:[
@@ -129,6 +132,7 @@ async function getCurrentWeather(city, lat=null, lon=null){
 
 function displayCurrentWeather(data){
   const alertTemprature = 40;
+  const currWeatherContainer = document.getElementById('#current-weather-section');
   const locationElem = document.getElementById('weather-location');
   const iconElem = document.querySelector('.current-weather img');
   const tempElem = document.getElementById('curr-weather-temp');
@@ -138,7 +142,7 @@ function displayCurrentWeather(data){
   // injecting headerinfo
   iconElem.setAttribute('src',`https://openweathermap.org/img/wn/${data.headerInfo.icon}@2x.png`);
   tempElem.innerHTML = `${data.headerInfo.temprature}&deg;<span class="text-[1rem]  tracking-tighter">c</span>`
-  locationElem.innerText = `Current Weather(${data.headerInfo.location})`;
+  locationElem.innerHTML = `Current Weather(${data.headerInfo.location}) <span class='font-black'>${data.headerInfo.weatherType}</span>`;
   realFeelElem.innerHTML = `RealFeeL ${data.headerInfo.realFeel}&deg;`;
   
   // body element
@@ -151,6 +155,9 @@ function displayCurrentWeather(data){
   if(data.headerInfo.temprature > alertTemprature)
     displayPopup('The current temperature is above 40°C. Please take necessary precautions to stay safe and hydrated.');
 
+  currWeatherContainer.setAttribute('class', `${getWeatherColor(data.headerInfo.weatherType)} max-w-[840px] mx-auto mt-4 rounded-sm shadow-sm p-6`)
+
+  console.log(currWeatherContainer);
 }
 
 
@@ -177,8 +184,8 @@ function getWeatherColor(weatherType){
 
     if(weatherType === 'Clear')return'bg-sky-400';
     if(weatherType === 'Clouds')return'bg-blue-300';
-    if(weatherType === 'Rain')return'bg-slate-600';
-    if(weatherType === 'Thunderstorm')return'bg-gray-800';
+    if(weatherType === 'Rain')return'bg-slate-500';
+    if(weatherType === 'Thunderstorm')return'bg-gray-500';
     if(weatherType === 'Snow')return'bg-cyan-100';
     if (['Mist', 'Haze'].includes(weatherType))return'bg-gray-300';
     return 'bg-amber-400';
