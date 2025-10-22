@@ -19,9 +19,12 @@
         Check Weather</p>
 
       <div class="flex flex-col space-y-2 sm:flex-row sm:space-x-2 sm:space-y-0">
+        <button id="unit-toggle"
+          class="border-2  border-black bg-black text-white px-5 py-1  rounded-md hover:bg-white hover:text-black transition-all duration-300">
+          Switch to °F
+        </button>
 
-        <button
-          id="live-btn"
+        <button id="live-btn"
           class="border-2  border-black bg-black text-white px-5 py-1  rounded-md hover:bg-white hover:text-black transition-all duration-300">
           Live Location</button>
       </div>
@@ -43,13 +46,11 @@
     </div>
 
     <!-- Current weather -->
-    <section id="#current-weather-section"
-    >
-      <div 
-      id="weather-location"
-      class="flex justify-between border-b border-gray-200"
-
-      > CURRENT WEATHER </div>
+    <section id="current-weather-section">
+      <div class="flex justify-between border-b border-gray-200">
+        <p id="weather-location"></p>
+        <p id="weather-type" class="font-black"></p>
+      </div>
       <div class="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] space-x-4">
 
         <!-- weather header -->
@@ -64,6 +65,7 @@
           </div>
 
         </div>
+
 
         <!-- current-weather body -->
         <div class="mt-4 space-y-5" id="current-weather-body">
@@ -93,7 +95,7 @@
     <div class="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
   </div>
 
-  <script src="../js/index.js"></script>
+  <script type='module' src="../js/main.js"></script>
 </body>
 
 </html>
