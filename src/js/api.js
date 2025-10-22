@@ -1,5 +1,5 @@
 // Current Weather
-const API_KEY = "17d07533467ca9cf8b160bce8034bdc3";
+const API_KEY = "ENTER YOUR API KEY(OPENWEATHER)";
 const BASE_URL = "https://api.openweathermap.org/data/2.5";
 
 

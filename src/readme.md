@@ -1,4 +1,4 @@
-## Weather Forecast Application
+# 🌦️ Weather Forecast Application
 
 ### 📘 Overview
 
@@ -9,52 +9,71 @@ It provides real-time weather data such as temperature, humidity, and wind speed
 
 ### 🎯 Objectives
 
-* To fetch and display real-time weather data using a public Weather API.
-* To create a responsive, user-friendly interface using Tailwind CSS.
-* To implement essential features such as:
+* Fetch and display **real-time weather data** using a public Weather API.
+* Create a **responsive, user-friendly interface** with Tailwind CSS.
+* Implement essential features such as:
 
-  * Search by city name
-  * Location-based weather
-  * 5-day forecast
-  * Dropdown for recent searches
-  * Weather alerts for extreme conditions
+  * 🔍 Search by city name
+  * 📍 Location-based weather
+  * 🗕 5-day forecast
+  * 🕑 Dropdown for recent searches
+  * ⚠️ Weather alerts for extreme conditions
+
 
 ---
 
 ### 🧩 Tech Stack
 
-Technology 
-**HTML5**    
-**Tailwind CSS**  
+ Technology            
+ ---------------------- 
+**HTML5**              
+**Tailwind CSS**       
 **JavaScript (ES6)**   
-**OpenWeatherMap API** 
-**LocalStorage**       
-
+**OpenWeatherMap API**
+**LocalStorage**     
 
 ---
 
-### 🚀 How to Run the Project
+### ⚙️ Installation & Setup
 
 #### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/ajeyajaz/weatherForecast.git
+cd weatherForecast
 ```
 
-#### 2. Setup API Key
+#### 2. Set Up Your API Key
 
 1. Go to [OpenWeatherMap](https://openweathermap.org/api)
 2. Sign up and get your **API Key**
-3. Open `script.js` and replace the placeholder:
+3. Open your JS file (for example  `api.js`) and replace:
 
    ```js
-   const apiKey = "YOUR_API_KEY_HERE";
+   const API_KEY = "YOUR_API_KEY_HERE";
    ```
+
+#### 3. Run the Project
+
+* Open `index.html` in your browser
+* Or use **Live Server** in VS Code → Right-click → **"Open with Live Server"**
 
 ---
 
-### 4. start Live server
+### 🌍 Features in Progress
 
-* Open index.html
-* click on Go live
+* 🌡️ Unit toggle (Celsius ⇄ Fahrenheit)
+* 🎨 Dynamic weather-based background colors
+* 🕓 Improved hourly forecast layout
 
+---
+
+### 📸 Preview
+
+
+---
+
+### 🧑‍💻 Author
+
+**Ajay H**
+[GitHub](https://github.com/ajeyajaz)
