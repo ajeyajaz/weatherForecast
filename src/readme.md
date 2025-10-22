@@ -69,7 +69,11 @@ cd weatherForecast
 ---
 
 ### 📸 Preview
+Window
+![window](image.png)
 
+Mobile
+![mobile](image-1.png)
 
 ---
 
